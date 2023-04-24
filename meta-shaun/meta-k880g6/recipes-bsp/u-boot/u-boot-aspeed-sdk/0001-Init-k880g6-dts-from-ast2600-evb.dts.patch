@@ -1,0 +1,26 @@
+From 53b3ed664fb5235d1958bd4f7f237bd7208cbd47 Mon Sep 17 00:00:00 2001
+From: Shaun Zhou <uranus-neptune@hotmail.com>
+Date: Mon, 24 Apr 2023 23:55:23 +0800
+Subject: [PATCH] Init k880g6 dts from ast2600-evb.dts
+
+---
+ arch/arm/dts/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index a79f885f54..176117f007 100755
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -688,7 +688,8 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	ast2600-rainier.dtb \
+ 	ast2600-s6q.dtb \
+ 	ast2600-slt.dtb \
+-	ast2600-tacoma.dtb
++	ast2600-tacoma.dtb \
++	ast2600-uboot-shaun-k880g6.dtb
+ 
+ dtb-$(CONFIG_ARCH_STI) += stih410-b2260.dtb
+ 
+-- 
+2.34.1
+
