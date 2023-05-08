@@ -8,7 +8,7 @@
 
 / {
 	model = "K880G6";
-	compatible = "aspeed,ast2600";
+	compatible = "aspeed,ast2600-evb-a1", "aspeed,ast2600";
 
 	aliases {
 		serial4 = &uart5;
@@ -30,6 +30,13 @@
 
 		gfx_memory: framebuffer {
 			size = <0x01000000>;
+			alignment = <0x01000000>;
+			compatible = "shared-dma-pool";
+			reusable;
+		};
+
+		video_engine_memory: video {
+			size = <0x04000000>;
 			alignment = <0x01000000>;
 			compatible = "shared-dma-pool";
 			reusable;
@@ -175,6 +182,7 @@
 		status = "okay";
 		m25p,fast-read;
 		label = "bmc";
+		spi-rx-bus-width = <4>;
 		spi-max-frequency = <50000000>;
 #include "openbmc-flash-layout-64.dtsi"
 	};
@@ -189,6 +197,7 @@
 		status = "okay";
 		m25p,fast-read;
 		label = "pnor";
+		spi-rx-bus-width = <4>;
 		spi-max-frequency = <100000000>;
 	};
 };
@@ -325,4 +334,9 @@
 &gfx {
 	status = "okay";
 	memory-region = <&gfx_memory>;
+};
+
+&video {
+	status = "okay";
+	memory-region = <&video_engine_memory>;
 };
