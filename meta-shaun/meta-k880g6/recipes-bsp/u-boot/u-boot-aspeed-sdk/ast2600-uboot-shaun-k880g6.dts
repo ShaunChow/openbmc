@@ -3,7 +3,7 @@
 #include "ast2600-u-boot.dtsi"
 
 / {
-        model = "AST2600 EVB";
+        model = "K880G6";
         compatible = "aspeed,ast2600-evb", "aspeed,ast2600";
 
 	memory {
