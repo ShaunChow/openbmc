@@ -32,6 +32,16 @@ SRC_URI = "${GNU_MIRROR}/grub/grub-${PV}.tar.gz \
            file://CVE-2022-28734-net-http-Fix-OOB-write-for-split-http-headers.patch \
            file://CVE-2022-28734-net-http-Error-out-on-headers-with-LF-without-CR.patch \
            file://CVE-2022-28735-kern-efi-sb-Reject-non-kernel-files-in-the-shim_lock.patch \
+           file://0001-configure-Remove-obsoleted-malign-jumps-loops-functi.patch \
+           file://0002-configure-Check-for-falign-jumps-1-beside-falign-loo.patch \
+           file://loader-efi-chainloader-Simplify-the-loader-state.patch \
+           file://commands-boot-Add-API-to-pass-context-to-loader.patch \
+           file://CVE-2022-28736-loader-efi-chainloader-Use-grub_loader_set_ex.patch\
+           file://0001-font-Fix-size-overflow-in-grub_font_get_glyph_intern.patch \
+           file://CVE-2022-2601.patch \
+           file://CVE-2022-3775.patch \
+           file://0001-risc-v-Handle-R_RISCV_CALL_PLT-reloc.patch \
+           file://0001-fs-ext2-Ignore-checksum-seed-incompat-feature.patch \
 "
 
 SRC_URI[sha256sum] = "23b64b4c741569f9426ed2e3d0e6780796fca081bee4c99f62aa3f53ae803f5f"
@@ -43,9 +53,13 @@ CVE_CHECK_IGNORE += "CVE-2021-46705"
 
 DEPENDS = "flex-native bison-native gettext-native"
 
-COMPATIBLE_HOST = '(x86_64.*|i.86.*|arm.*|aarch64.*|riscv.*)-(linux.*|freebsd.*)'
-COMPATIBLE_HOST:armv7a = 'null'
-COMPATIBLE_HOST:armv7ve = 'null'
+GRUB_COMPATIBLE_HOST = '(x86_64.*|i.86.*|arm.*|aarch64.*|riscv.*)-(linux.*|freebsd.*)'
+COMPATIBLE_HOST = "${GRUB_COMPATIBLE_HOST}"
+# Grub doesn't support hard float toolchain and won't be able to forcefully
+# disable it on some of the target CPUs. See 'configure.ac' for
+# supported/unsupported CPUs in hardfp.
+COMPATIBLE_HOST:armv7a = "${@'null' if bb.utils.contains('TUNE_CCARGS_MFLOAT', 'hard', True, False, d) else d.getVar('GRUB_COMPATIBLE_HOST')}"
+COMPATIBLE_HOST:armv7ve = "${@'null' if bb.utils.contains('TUNE_CCARGS_MFLOAT', 'hard', True, False, d) else d.getVar('GRUB_COMPATIBLE_HOST')}"
 
 # configure.ac has code to set this automagically from the target tuple
 # but the OE freeform one (core2-foo-bar-linux) don't work with that.

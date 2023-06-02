@@ -13,13 +13,14 @@ PR = "r9"
 
 PACKAGECONFIG ??= "scripting tui libunwind"
 PACKAGECONFIG[dwarf] = ",NO_DWARF=1"
-PACKAGECONFIG[scripting] = ",NO_LIBPERL=1 NO_LIBPYTHON=1,perl python3"
+PACKAGECONFIG[scripting] = ",NO_LIBPERL=1 NO_LIBPYTHON=1,perl python3 python3-setuptools-native"
 # gui support was added with kernel 3.6.35
 # since 3.10 libnewt was replaced by slang
 # to cover a wide range of kernel we add both dependencies
 PACKAGECONFIG[tui] = ",NO_NEWT=1,libnewt slang"
 PACKAGECONFIG[libunwind] = ",NO_LIBUNWIND=1 NO_LIBDW_DWARF_UNWIND=1,libunwind"
 PACKAGECONFIG[libnuma] = ",NO_LIBNUMA=1"
+PACKAGECONFIG[bfd] = ",NO_LIBBFD=1"
 PACKAGECONFIG[systemtap] = ",NO_SDT=1,systemtap"
 PACKAGECONFIG[jvmti] = ",NO_JVMTI=1"
 # libaudit support would need scripting to be enabled
@@ -47,7 +48,7 @@ PROVIDES = "virtual/perf"
 inherit linux-kernel-base kernel-arch manpages
 
 # needed for building the tools/perf Python bindings
-inherit ${@bb.utils.contains('PACKAGECONFIG', 'scripting', 'python3targetconfig', '', d)}
+inherit ${@bb.utils.contains('PACKAGECONFIG', 'scripting', 'python3targetconfig setuptools3', '', d)}
 inherit python3-dir
 export PYTHON_SITEPACKAGES_DIR
 
@@ -80,7 +81,7 @@ EXTRA_OEMAKE = '\
     LDSHARED="${CC} -shared" \
     AR="${AR}" \
     LD="${LD}" \
-    EXTRA_CFLAGS="-ldw" \
+    EXTRA_CFLAGS="-ldw -I${S}" \
     YFLAGS='-y --file-prefix-map=${WORKDIR}=/usr/src/debug/${PN}/${EXTENDPE}${PV}-${PR}' \
     EXTRA_LDFLAGS="${PERF_EXTRA_LDFLAGS}" \
     perfexecdir=${libexecdir} \
@@ -275,6 +276,20 @@ do_configure:prepend () {
         sed -i -e "s,$target,$replacement1$replacement2$replacement3,g" \
                        "${S}/tools/perf/pmu-events/Build"
     fi
+    if [ -e "${S}/tools/perf/pmu-events/jevents.py" ]; then
+        sed -i -e "s#os.scandir(path)#sorted(os.scandir(path), key=lambda e: e.name)#g" \
+                       "${S}/tools/perf/pmu-events/jevents.py"
+    fi
+    if [ -e "${S}/tools/perf/arch/arm64/Makefile" ]; then
+	sed -i 's,sysdef := $(srctree)/,sysdef := ,' ${S}/tools/perf/arch/arm64/Makefile
+	sed -i 's,$(incpath) $(sysdef),$(incpath) $(srctree)/$(sysdef) $(sysdef),' ${S}/tools/perf/arch/arm64/Makefile
+    fi
+    if [ -e "${S}/tools/perf/arch/arm64/entry/syscalls/mksyscalltbl" ]; then
+	if ! grep -q input_rel ${S}/tools/perf/arch/arm64/entry/syscalls/mksyscalltbl; then
+	    sed -i 's,input=$4,input=$4\ninput_rel=$5,' ${S}/tools/perf/arch/arm64/entry/syscalls/mksyscalltbl
+	fi
+	sed -i 's,#include \\"\$input\\",#include \\"\$input_rel\\",'  ${S}/tools/perf/arch/arm64/entry/syscalls/mksyscalltbl
+    fi
     # end reproducibility substitutions
 
     # We need to ensure the --sysroot option in CC is preserved
@@ -355,6 +370,16 @@ FILES:${PN}-python = " \
                        "
 FILES:${PN}-perl = "${libexecdir}/perf-core/scripts/perl"
 
-
-INHIBIT_PACKAGE_DEBUG_SPLIT="1"
 DEBUG_OPTIMIZATION:append = " -Wno-error=maybe-uninitialized"
+
+PACKAGESPLITFUNCS =+ "perf_fix_sources"
+
+perf_fix_sources () {
+	for f in util/parse-events-flex.h util/parse-events-flex.c util/pmu-flex.c \
+			util/expr-flex.h util/expr-flex.c; do
+		f=${PKGD}/usr/src/debug/${PN}/${EXTENDPE}${PV}-${PR}/$f
+		if [ -e $f ]; then
+			sed -i -e 's#${S}/##g' $f
+		fi
+	done
+}
