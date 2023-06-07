@@ -1,10 +1,10 @@
 FILESEXTRAPATHS:append := "${THISDIR}/${PN}:"
 
 
-KBRANCH = "dev-5.15"
-LINUX_VERSION = "5.15.80"
+KBRANCH = "dev-6.1"
+LINUX_VERSION = "6.1.15"
 
-SRCREV="8600e9e279a638f3f1286d3c2dd7c45507385265"
+SRCREV="580639a973406691fa93b8fa377c4c5a43f66094"
 
 SRC_URI:append = "\
                 file://k880g6.cfg \

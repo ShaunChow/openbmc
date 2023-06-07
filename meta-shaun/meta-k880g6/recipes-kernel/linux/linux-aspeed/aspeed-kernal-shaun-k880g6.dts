@@ -8,7 +8,7 @@
 
 / {
 	model = "K880G6";
-	compatible = "aspeed,ast2600-evb-a1", "aspeed,ast2600";
+	compatible = "aspeed,ast2600-evb", "aspeed,ast2600";
 
 	aliases {
 		serial4 = &uart5;
@@ -28,15 +28,15 @@
 		#size-cells = <1>;
 		ranges;
 
-		gfx_memory: framebuffer {
-			size = <0x01000000>;
+		video_engine_memory: video {
+			size = <0x04000000>;
 			alignment = <0x01000000>;
 			compatible = "shared-dma-pool";
 			reusable;
 		};
 
-		video_engine_memory: video {
-			size = <0x04000000>;
+		gfx_memory: framebuffer {
+			size = <0x01000000>;
 			alignment = <0x01000000>;
 			compatible = "shared-dma-pool";
 			reusable;
@@ -209,11 +209,6 @@
 
 &i2c0 {
 	status = "okay";
-
-	temp@2e {
-		compatible = "adi,adt7490";
-		reg = <0x2e>;
-	};
 };
 
 &i2c1 {
@@ -242,10 +237,26 @@
 
 &i2c7 {
 	status = "okay";
+
+	temp@2e {
+		compatible = "adi,adt7490";
+		reg = <0x2e>;
+	};
+
+	eeprom@50 {
+		compatible = "atmel,24c08";
+		reg = <0x50>;
+		pagesize = <16>;
+	};
 };
 
 &i2c8 {
 	status = "okay";
+
+	lm75@4d {
+		compatible = "national,lm75";
+		reg = <0x4d>;
+	};
 };
 
 &i2c9 {
@@ -323,20 +334,17 @@
 	clk-phase-sd-hs = <7>, <200>;
 };
 
-&ehci0 {
+&vhub {
 	status = "okay";
-};
-
-&ehci1 {
-	status = "okay";
-};
-
-&gfx {
-	status = "okay";
-	memory-region = <&gfx_memory>;
+	pinctrl-names = "default";
 };
 
 &video {
 	status = "okay";
 	memory-region = <&video_engine_memory>;
+};
+
+&gfx {
+	status = "okay";
+	memory-region = <&gfx_memory>;
 };
