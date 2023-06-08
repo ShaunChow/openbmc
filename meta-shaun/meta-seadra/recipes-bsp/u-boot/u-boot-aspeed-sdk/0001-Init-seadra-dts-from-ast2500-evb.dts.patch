@@ -1,0 +1,25 @@
+From ba69b4938de35bb822750ced8074c31b7903c83d Mon Sep 17 00:00:00 2001
+From: Shaun Zhou <uranus-neptune@hotmail.com>
+Date: Wed, 7 Jun 2023 23:21:22 +0800
+Subject: [PATCH] Init seadra dts from ast2500-evb.dts
+
+---
+ arch/arm/dts/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index 6c34b83336..c705b25f80 100755
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -695,7 +695,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	ast2600-slt.dtb \
+ 	ast2600-tacoma.dtb \
+ 	ast2600-intel.dtb \
+-	ast2600-tacoma.dtb
++	ast2500-uboot-shaun-seadra.dtb
+ 
+ dtb-$(CONFIG_ARCH_STI) += stih410-b2260.dtb
+ 
+-- 
+2.34.1
+

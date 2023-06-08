@@ -1,1 +1,3 @@
-RDEPENDS:${PN}-inventory:append:k880g6 = " webui-vue"
+RDEPENDS:${PN}-extras:append =" \
+    webui-vue \
+    "
