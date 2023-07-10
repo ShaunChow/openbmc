@@ -1,3 +1,3 @@
-RDEPENDS:${PN}-extras:append =" \
-    webui-vue \
-    "
+RDEPENDS:${PN}-bmcweb:append =" \
+        webui-vue \
+        "

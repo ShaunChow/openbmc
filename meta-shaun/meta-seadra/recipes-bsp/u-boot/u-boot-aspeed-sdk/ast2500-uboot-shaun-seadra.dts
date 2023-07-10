@@ -83,7 +83,7 @@
 	status = "okay";
 	flash@0 {
 		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_spi1_default>;
+		pinctrl-0 = <&pinctrl_spi1_default &pinctrl_espi_default>;
 		status = "okay";
 		spi-max-frequency = <50000000>;
 		spi-tx-bus-width = <2>;
@@ -91,7 +91,7 @@
 	};
 	flash@1 {
 		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_spi1_default &pinctrl_spi1cs1_default>;
+		pinctrl-0 = <&pinctrl_spi1_default &pinctrl_spi1cs1_default &pinctrl_espi_default>;
 		status = "okay";
 		spi-max-frequency = <50000000>;
 		spi-tx-bus-width = <2>;
@@ -121,4 +121,27 @@
 &i2c7 {
         status = "okay";
 
+};
+
+&gpio {
+
+	status = "okay";
+
+	gpiob7 {
+		gpio-hog;
+		gpios = <15 0>;
+		input;
+	};
+
+	gpioe0 {
+		gpio-hog;
+		gpios = <32 0>;
+		input;
+	};
+
+	gpiof3 {
+		gpio-hog;
+		gpios = <43 0>;
+		input;
+	};
 };

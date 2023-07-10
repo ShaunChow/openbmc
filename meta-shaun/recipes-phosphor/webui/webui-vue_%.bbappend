@@ -1,3 +1,6 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${BPN}:"
 
-SRCREV = "ef96c6d96950e40954c5eb8ed87fef5dcf630bf3"
+SRCREV = "78372d6345cf5f1e04d6a8d56c416a7aec70b998"
+
+
+

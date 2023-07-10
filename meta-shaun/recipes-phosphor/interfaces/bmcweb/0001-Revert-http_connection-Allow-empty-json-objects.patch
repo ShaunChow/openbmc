@@ -1,0 +1,25 @@
+From a3969204c84aeb199abab8dd6836b42a61d6ab37 Mon Sep 17 00:00:00 2001
+From: Shaun Zhou <uranus-neptune@hotmail.com>
+Date: Mon, 26 Jun 2023 23:18:00 +0800
+Subject: [PATCH] Revert "http_connection: Allow empty json objects"
+
+---
+ http/http_connection.hpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/http/http_connection.hpp b/http/http_connection.hpp
+index 47f9432bd..d5d02e545 100644
+--- a/http/http_connection.hpp
++++ b/http/http_connection.hpp
+@@ -342,7 +342,7 @@ class Connection :
+ 
+         res.setHashAndHandleNotModified();
+ 
+-        if (res.body().empty() && !res.jsonValue.is_null())
++        if (res.body().empty() && !res.jsonValue.empty())
+         {
+             using http_helpers::ContentType;
+             std::array<ContentType, 3> allowed{
+-- 
+2.34.1
+

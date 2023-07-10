@@ -32,6 +32,19 @@
 			reusable;
 		};
 	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		heartbeat {
+			gpios = <&gpio 41 0>;
+			linux,default-trigger = "timer";
+		};
+
+		identify {
+            gpios = <&gpio 2 1>;
+        };
+	};
 };
 
 &fmc {
@@ -77,6 +90,45 @@
 	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
 };
 
+&espi {
+	status = "okay";
+
+	flash-safs-mode = "0x02";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_espi_default>;
+};
+
+&lpc_snoop {
+    status = "okay";
+};
+
+&kcs3 {
+	status = "okay";
+	aspeed,lpc-io-reg = <0xca2>;
+};
+
+&i2c0 {
+	status = "okay";
+
+	bmc_fru: eeprom_24c512@53 {
+		compatible = "microchip,24c512", "atmel,24c512";
+		reg = <0x53>;
+		pagesize = <128>;
+	};
+
+	inlet_temp: emc1464@f8 {
+		compatible = "microchip,emc1464";
+		reg = <0xf8>;
+	};
+};
+
+&i2c1 {
+	status = "okay";
+};
+
+
+
 &i2c3 {
 	status = "okay";
 
@@ -85,6 +137,18 @@
 		reg = <0x50>;
 		pagesize = <16>;
 	};
+};
+
+&i2c4 {
+	status = "okay";
+};
+
+&i2c5 {
+	status = "okay";
+};
+
+&i2c6 {
+	status = "okay";
 };
 
 &i2c7 {
@@ -132,4 +196,45 @@
 
 &rtc {
 	status = "okay";
+};
+
+&gpio {
+   status = "okay";
+   gpio-line-names =
+   /*A0-A7*/   "","","LED_UID","","","","","",
+   /*B0-B7*/   "","LED_HEALTH_GREEN","LED_HEALTH_RED","","","","","ME_RECOVERY_N",
+   /*C0-C7*/   "","","","","","","","",
+   /*D0-D7*/   "","","","","","","","",
+   /*E0-E7*/   "","BMC_READY","RESET_BUTTON","RESET_OUT","","NMI_OUT","POWER_BUTTON","POWER_OUT",
+   /*F0-F7*/   "","BMC_HEARTBEAT","","PCH_ME_DESC_OVERRIDE","","","","",
+   /*G0-G7*/   "","","","","","","","",
+   /*H0-H7*/   "","","","","POST_COMPLETE","","","",
+   /*I0-I7*/   "","","","","","","","",
+   /*J0-J7*/   "","","","","","","","",
+   /*K0-K7*/   "","","","","","","","",
+   /*L0-L7*/   "","","","","","","","",
+   /*M0-M7*/   "","","","","","","","",
+   /*N0-N7*/   "","","","","","","","",
+   /*O0-O7*/   "","","","","","","","",
+   /*P0-P7*/   "","","","","","","","",
+   /*Q0-Q7*/   "","","","","","","","",
+   /*R0-R7*/   "","","","","","","","",
+   /*S0-S7*/   "","PS_PWROK","","","","","","",
+   /*T0-T7*/   "","","","","","","","",
+   /*U0-U7*/   "","","","","","","","",
+   /*V0-V7*/   "","","","","","","","",
+   /*W0-W7*/   "","","","","","","","",
+   /*X0-X7*/   "","","","","","","","",
+   /*Y0-Y7*/   "","","","","","","","",
+   /*Z0-Z7*/   "","","","","","","","",
+   /*AA0-AA7*/ "","","","","","UID_BUTTON","","",
+   /*AB0-AB7*/ "","","","","","","","",
+   /*AC0-AC7*/ "NMI_BUTTON","","","","","","","";
+
+
+	gpioe1 {
+		gpio-hog;
+		gpios = <33 0>;
+		output-low;
+	};
 };
