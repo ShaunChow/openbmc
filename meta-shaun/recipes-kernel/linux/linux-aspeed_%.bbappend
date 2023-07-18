@@ -2,7 +2,7 @@ FILESEXTRAPATHS:append := "${THISDIR}/${PN}:"
 
 SRC_URI:append = "\
                 file://0001-Add-linux-driver-aspeed-espi.patch \
-                file://0002-Add-dtsi-for-aspeed-espi.patch \
+                file://0002-PATCH-eSPI-add-Aspeed-AST2600-eSPI-driver-to-boot.patch \
                 file://drivers/soc/aspeed/rvas/hardware_engines.c;subdir=git \
                 file://drivers/soc/aspeed/rvas/hardware_engines.h;subdir=git \
                 file://drivers/soc/aspeed/rvas/Makefile;subdir=git \
@@ -28,4 +28,6 @@ SRC_URI:append = "\
                 file://drivers/soc/aspeed/ast2500-espi.h;subdir=git \
                 file://drivers/soc/aspeed/ast2600-espi.c;subdir=git \
                 file://drivers/soc/aspeed/ast2600-espi.h;subdir=git \
+                file://0003-PATCH-v3-eSPI-add-Aspeed-AST2500-eSPI-driver-to-boot.patch \
+                file://drivers/soc/aspeed/aspeed-espi-slave.c;subdir=git \
                 "

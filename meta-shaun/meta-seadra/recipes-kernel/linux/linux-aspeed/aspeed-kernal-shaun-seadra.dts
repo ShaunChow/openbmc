@@ -2,6 +2,8 @@
 /dts-v1/;
 
 #include "aspeed-g5.dtsi"
+#include <dt-bindings/gpio/aspeed-gpio.h>
+#include <dt-bindings/interrupt-controller/irq.h>
 
 / {
 	model = "SEADRA";
@@ -54,7 +56,7 @@
 		m25p,fast-read;
 		label = "bmc";
 		spi-max-frequency = <50000000>;
-#include "openbmc-flash-layout.dtsi"
+		#include "openbmc-flash-layout.dtsi"
 	};
 };
 
@@ -92,15 +94,12 @@
 
 &espi {
 	status = "okay";
-
-	flash-safs-mode = "0x02";
-
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_espi_default>;
 };
 
-&lpc_snoop {
-    status = "okay";
+&lpc_reset {
+    status = "disabled";
 };
 
 &kcs3 {
@@ -110,6 +109,10 @@
 
 &i2c0 {
 	status = "okay";
+};
+
+&i2c1 {
+	status = "okay";
 
 	bmc_fru: eeprom_24c512@53 {
 		compatible = "microchip,24c512", "atmel,24c512";
@@ -117,26 +120,16 @@
 		pagesize = <128>;
 	};
 
-	inlet_temp: emc1464@f8 {
+	inlet_temp: emc1464@7c {
 		compatible = "microchip,emc1464";
-		reg = <0xf8>;
+		reg = <0x7c>;
 	};
-};
-
-&i2c1 {
-	status = "okay";
 };
 
 
 
 &i2c3 {
 	status = "okay";
-
-	eeprom@50 {
-		compatible = "atmel,24c08";
-		reg = <0x50>;
-		pagesize = <16>;
-	};
 };
 
 &i2c4 {
@@ -153,11 +146,6 @@
 
 &i2c7 {
 	status = "okay";
-
-	lm75@4d {
-		compatible = "national,lm75";
-		reg = <0x4d>;
-	};
 };
 
 &sdmmc {
@@ -205,7 +193,7 @@
    /*B0-B7*/   "","LED_HEALTH_GREEN","LED_HEALTH_RED","","","","","ME_RECOVERY_N",
    /*C0-C7*/   "","","","","","","","",
    /*D0-D7*/   "","","","","","","","",
-   /*E0-E7*/   "","BMC_READY","RESET_BUTTON","RESET_OUT","","NMI_OUT","POWER_BUTTON","POWER_OUT",
+   /*E0-E7*/   "","BMC_READY","RESET_BUTTON","RESET_OUT","NMI_BUTTON","NMI_OUT","POWER_BUTTON","POWER_OUT",
    /*F0-F7*/   "","BMC_HEARTBEAT","","PCH_ME_DESC_OVERRIDE","","","","",
    /*G0-G7*/   "","","","","","","","",
    /*H0-H7*/   "","","","","POST_COMPLETE","","","",
@@ -229,12 +217,18 @@
    /*Z0-Z7*/   "","","","","","","","",
    /*AA0-AA7*/ "","","","","","UID_BUTTON","","",
    /*AB0-AB7*/ "","","","","","","","",
-   /*AC0-AC7*/ "NMI_BUTTON","","","","","","","";
+   /*AC0-AC7*/ "","","","","","","","";
 
 
 	gpioe1 {
 		gpio-hog;
 		gpios = <33 0>;
+		output-low;
+	};
+
+	gpiot6 {
+		gpio-hog;
+		gpios = <158 0>;
 		output-low;
 	};
 };

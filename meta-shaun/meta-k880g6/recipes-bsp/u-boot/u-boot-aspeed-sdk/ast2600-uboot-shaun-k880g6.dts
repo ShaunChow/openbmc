@@ -233,6 +233,10 @@
 	sdhci-drive-type = <1>;
 };
 
+&lpc_reset {
+    	status = "disabled";
+};
+
 &i2c4 {
 	status = "okay";
 

@@ -161,6 +161,23 @@
 	pinctrl-0 = <&pinctrl_rgmii4_default>;
 };
 
+&espi {
+	status = "okay";
+
+	flash-safs-mode;
+	flash-safs-taddr = <0x30000000>;
+	flash-safs-size  = <0x01000000>;
+
+	vw-gpio-hw-mode;
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_espi_default>;
+};
+
+&lpc_reset {
+    status = "disabled";
+};
+
 &emmc_controller {
 	status = "okay";
 };
