@@ -222,6 +222,8 @@ static void seadra_init(void)
     reg32 &= ~0x00000001;
     *(volatile u32 *)(0x1e78502c) = reg32;
 
+	*(volatile u32 *)(0x1e78909c) = 0x03400040;    //bits [24:22] 101b : Route UART1 to UART3 
+
 	// /* lock SCU */
 	// writel(0x00000000, 0x1e6e2000);
 }

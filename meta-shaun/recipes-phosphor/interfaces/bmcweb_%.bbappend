@@ -6,4 +6,7 @@ SRC_URI:append = "\
 
 EXTRA_OEMESON:append = " \
     -Dredfish-post-to-old-updateservice=enabled \
+    -Dhost-serial-socket=enabled \
+    -Dkvm=enabled \
+    -Drest=enabled \
     "

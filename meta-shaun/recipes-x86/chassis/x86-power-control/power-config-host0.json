@@ -50,7 +50,7 @@
       }
   ],
   "timing_configs": {
-      "PowerPulseMs": 200,
+      "PowerPulseMs": 400,
       "ForceOffPulseMs": 15000,
       "ResetPulseMs": 500,
       "PowerCycleMs": 5000,

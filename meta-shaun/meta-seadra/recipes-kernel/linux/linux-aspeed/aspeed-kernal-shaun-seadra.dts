@@ -33,6 +33,13 @@
 			compatible = "shared-dma-pool";
 			reusable;
 		};
+
+		video_engine_memory: jpegbuffer {
+			size = <0x02000000>;	/* 32M */
+			alignment = <0x01000000>;
+			compatible = "shared-dma-pool";
+			reusable;
+		};
 	};
 
 	leds {
@@ -56,7 +63,7 @@
 		m25p,fast-read;
 		label = "bmc";
 		spi-max-frequency = <50000000>;
-		#include "openbmc-flash-layout.dtsi"
+		#include "openbmc-flash-layout-64.dtsi"
 	};
 };
 
@@ -74,6 +81,17 @@
 	status = "okay";
 };
 
+&uart1 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_txd1_default
+		     	 &pinctrl_rxd1_default>;
+};
+
+&uart3 {
+	status = "okay";
+};
+
 &uart5 {
 	status = "okay";
 };
@@ -86,7 +104,7 @@
 };
 
 &mac1 {
-	status = "okay";
+	status = "disabled";
 
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
@@ -99,7 +117,7 @@
 };
 
 &lpc_reset {
-    status = "disabled";
+    status = "okay";
 };
 
 &kcs3 {
@@ -114,19 +132,22 @@
 &i2c1 {
 	status = "okay";
 
-	bmc_fru: eeprom_24c512@53 {
+	bmc_fru: eeprom@53 {
 		compatible = "microchip,24c512", "atmel,24c512";
 		reg = <0x53>;
 		pagesize = <128>;
 	};
 
-	inlet_temp: emc1464@7c {
-		compatible = "microchip,emc1464";
+	inlet_temp: emc1414@7c {
+		compatible = "microchip,emc1414";
 		reg = <0x7c>;
 	};
+
+	outlet_temp: tmp468@48 {
+		compatible = "ti,tmp468";
+		reg = <0x48>;
+	};
 };
-
-
 
 &i2c3 {
 	status = "okay";
@@ -138,6 +159,15 @@
 
 &i2c5 {
 	status = "okay";
+
+	psu0_fru: eeprom@50 {
+		compatible = "atmel,24c02";
+		reg = <0x50>;
+	};
+	psu0_pmbus: pmbus@58 {
+		compatible = "pmbus";
+		reg = <0x58>;
+	};
 };
 
 &i2c6 {
@@ -178,8 +208,13 @@
 };
 
 &gfx {
-     status = "okay";
-     memory-region = <&gfx_memory>;
+	status = "okay";
+	memory-region = <&gfx_memory>;
+};
+
+&video {
+	status = "okay";
+	memory-region = <&video_engine_memory>;
 };
 
 &rtc {
@@ -220,15 +255,79 @@
    /*AC0-AC7*/ "","","","","","","","";
 
 
-	gpioe1 {
+	bmc-ready {
 		gpio-hog;
 		gpios = <33 0>;
 		output-low;
 	};
+};
 
-	gpiot6 {
-		gpio-hog;
-		gpios = <158 0>;
-		output-low;
+&pwm_tacho {
+	status = "disabled";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pwm0_default
+	             &pinctrl_pwm1_default
+		     	 &pinctrl_pwm2_default
+		     	 &pinctrl_pwm6_default
+		     	 &pinctrl_pwm4_default
+		     	 &pinctrl_pwm7_default>;
+	fan@0 {
+		reg = <0x00>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+	};
+
+	fan@1 {
+		reg = <0x00>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
+	};
+
+	fan@2 {
+		reg = <0x01>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x02>;
+	};
+
+	fan@3 {
+		reg = <0x01>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x03>;
+	};
+
+	fan@4 {
+		reg = <0x02>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x04>;
+	};
+
+	fan@5 {
+		reg = <0x02>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x05>;
+	};
+
+	fan@6 {
+		reg = <0x06>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x0c>;
+	};
+
+	fan@7 {
+		reg = <0x06>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x0d>;
+	};
+
+	fan@8 {
+		reg = <0x04>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x08>;
+	};
+
+	fan@9 {
+		reg = <0x04>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x09>;
+	};
+
+	fan@10 {
+		reg = <0x07>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x0e>;
+	};
+
+	fan@11 {
+		reg = <0x07>;
+		aspeed,fan-tach-ch = /bits/ 8 <0x0f>;
 	};
 };

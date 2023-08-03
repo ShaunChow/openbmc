@@ -1,0 +1,317 @@
+{
+    "Exposes": [
+        {
+            "Address": "0x48",
+            "Bus": 1,
+            "Name": "Outlet",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 70
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 2
+                }
+            ],
+            "Type": "TMP468"
+        },
+        {
+            "Address": "0x7c",
+            "Bus": 1,
+            "Name": "Inlet",
+            "Thresholds": [
+                {
+                    "Name": "upper critical",
+                    "Direction": "greater than",
+                    "Severity": 1,
+                    "Value": 38
+                },
+                {
+                    "Name": "lower critical",
+                    "Direction": "less than",
+                    "Severity": 1,
+                    "Value": 2
+                }
+            ],
+            "Type": "EMC1414"
+        },
+        {
+            "Index": 0,
+            "Name": "SYS_FAN1_F",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 1,
+            "Name": "SYS_FAN1_R",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 2,
+            "Name": "SYS_FAN2_F",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 3,
+            "Name": "SYS_FAN2_R",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 4,
+            "Name": "SYS_FAN3_F",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 5,
+            "Name": "SYS_FAN3_R",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 6,
+            "Name": "SYS_FAN4_F",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 7,
+            "Name": "SYS_FAN4_R",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 8,
+            "Name": "SYS_FAN5_F",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 9,
+            "Name": "SYS_FAN5_R",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 10,
+            "Name": "SYS_FAN6_F",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        },
+        {
+            "Index": 11,
+            "Name": "SYS_FAN6_R",
+            "MaxReading": 32000,
+            "MinReading": 2300,
+            "PowerState": "Always",
+            "Thresholds": [
+                {
+                    "Direction": "greater than",
+                    "Name": "upper critical",
+                    "Severity": 1,
+                    "Value": 35000
+                },
+                {
+                    "Direction": "less than",
+                    "Name": "lower critical",
+                    "Severity": 1,
+                    "Value": 4500
+                }
+            ],
+            "Type": "AspeedFan"
+        }
+    ],
+    "Name": "main board",
+    "Probe": "xyz.openbmc_project.FruDevice({'PRODUCT_MANUFACTURER': 'Inventec'})",
+    "Type": "Board",
+    "xyz.openbmc_project.Inventory.Decorator.Asset": {
+        "Manufacturer": "$BOARD_MANUFACTURER",
+        "Model": "$BOARD_PRODUCT_NAME",
+        "PartNumber": "$BOARD_PART_NUMBER",
+        "SerialNumber": "$BOARD_SERIAL_NUMBER"
+    }
+}
